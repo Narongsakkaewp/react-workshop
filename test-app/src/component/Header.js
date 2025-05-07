@@ -5,7 +5,7 @@ const header = () => {
   return (
     <div>
       <div className='text-center p-5'>
-        <h2 className="text-3xl font-bold font-poppins text-black">Employee Check Table</h2> <br />
+        <h2 className="text-3xl font-bold font-poppins text-black">Employee Check Table</h2>
 
         {/* <blockquote class="text-center text-2xl font-semibold text-gray-900 italic">
           When you look&nbsp;

@@ -17,7 +17,7 @@ const UserHeader = ({
     const [endDate, setEndDate] = useState(dayjs());
 
   return (
-    <div className="px-9 pt-5 flex justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
+    <div className="H-Menu">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <form
           onSubmit={(e) => {
@@ -25,13 +25,13 @@ const UserHeader = ({
             if (onSearch) onSearch(e);
           }}
         >
-          <div className="relative flex flex-wrap items-center my-2 font-kanit font-light gap-2">
+          <div className="H-Menu-2">
             <input
               type="text"
               name="code"
               placeholder="code"
               autoComplete="off"
-              className="border rounded px-3 py-2"
+              className="H-Input"
             />
 
             <input
@@ -39,10 +39,10 @@ const UserHeader = ({
               name="name"
               placeholder="name"
               autoComplete="off"
-              className="border rounded px-3 py-2"
+              className="H-Input"
             />
 
-            <select name="department" className="border rounded px-3 py-2">
+            <select name="department" className="H-Dropdown">
               <option value="">เลือกแผนก</option>
               <option value="hr">ทรัพยากรบุคคล</option>
               <option value="it">ไอที</option>
@@ -58,14 +58,14 @@ const UserHeader = ({
             />
 
             <DatePicker
-              label="เลือกวันที่สิ้นสุด" className='font-kanit'
+              label="เลือกวันที่สิ้นสุด"
               value={endDate}
               format="DD-MM-YYYY"
               onChange={(newValue) => setEndDate(newValue)}
               slotProps={{ textField: { size: 'small', className: 'bg-white' } }}
             />
 
-            <div className='space-x-2'>
+            <div className='btn-group'>
             <button type="submit" className="bg-yellow-500 text-white hover:bg-yellow-200 hover:text-black px-4 py-2 rounded">
               ค้นหา
             </button>

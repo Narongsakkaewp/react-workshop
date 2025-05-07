@@ -49,31 +49,31 @@ const EmployeeTable = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="">
-      <table id="example">
-        <thead>
-          <tr>
-            <td className="border-2">รหัสพนักงาน</td>
-            <td className="border-2">แผนก</td>
-            <td className="border-2">ชื่อ - นามสกุล</td>
-            <td className="border-2">วัน/เวลา Check-in</td>
-            <td className="border-2">Lat, Long Check-in</td>
-            <td className="border-2">Maps</td>
-            <td className="border-2">วัน/เวลา Check-out</td>
-            <td className="border-2">Lat, Long Check-out</td>
-            <td className="border-2">Maps</td>
+    <div>
+      <table className='custom-table'>
+        <thead className='custom-thead'>
+          <tr className="custom-row">
+            <td className="custom-cell">รหัสพนักงาน</td>
+            <td className="custom-cell">แผนก</td>
+            <td className="custom-cell">ชื่อ - นามสกุล</td>
+            <td className="custom-cell">วัน/เวลา Check-in</td>
+            <td className="custom-cell">Lat, Long Check-in</td>
+            <td className="custom-cell">Maps</td>
+            <td className="custom-cell">วัน/เวลา Check-out</td>
+            <td className="custom-cell">Lat, Long Check-out</td>
+            <td className="custom-cell">Maps</td>
           </tr>
         </thead>
         <tbody>
           {rows.data.length > 0 ? (
             rows.data.map((row, index) => (
               <tr id='tr_list' key={index} className='hover:bg-blue-200 border-2'>
-                <td className="border-2">{row.username}</td>
-                <td className="border-2">{row.department}</td>
-                <td className="border-2">{row.name}</td>
-                <td className="border-2">{formatDateTime(row.checkin_time)}</td>
-                <td className="border-2">{row.checkin_latitude}, {row.checkin_longitude}</td>
-                <td className="border-2">
+                <td className="custom-cell-tbody">{row.username}</td>
+                <td className="custom-cell-tbody">{row.department}</td>
+                <td className="custom-cell-tbody">{row.name}</td>
+                <td className="custom-cell-tbody">{formatDateTime(row.checkin_time)}</td>
+                <td className="custom-cell-tbody">{row.checkin_latitude}, {row.checkin_longitude}</td>
+                <td className="custom-cell-tbody">
                   <button
                     className="bg-blue-500 text-white text-md px-3 py-1 rounded-lg hover:bg-slate-300 transition"
                     onClick={() => showMap(row.checkin_latitude, row.checkin_longitude)}
@@ -81,9 +81,9 @@ const EmployeeTable = () => {
                     Map
                   </button>
                 </td>
-                <td className="border-2">{formatDateTime(row.checkout_time)}</td>
-                <td className="border-2">{row.checkout_latitude}, {row.checkout_longitude}</td>
-                <td className="border-2">
+                <td className="custom-cell-tbody">{formatDateTime(row.checkout_time)}</td>
+                <td className="custom-cell-tbody">{row.checkout_latitude}, {row.checkout_longitude}</td>
+                <td className="custom-cell-tbody">
                   <button
                     className="bg-red-700 text-white text-md px-3 py-1 rounded-lg hover:bg-red-300 transition"
                     onClick={() => showMap(row.checkout_latitude, row.checkout_longitude)}
