@@ -11,7 +11,7 @@
     }
     
     thead{
-        @apply bg-[#F0BB78] text-white text-center font-kanit;
+        @apply bg-green-800 text-white text-center font-kanit;
     }
     
     tr{

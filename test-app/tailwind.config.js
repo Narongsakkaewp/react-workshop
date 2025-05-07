@@ -7,6 +7,10 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
         kanit:['Kanit', 'sans-serif'],
       },
+      colors: {
+        emeraldStart: 'rgb(2, 182, 104)',
+        emeraldEnd: 'rgb(1, 111, 65)',
+      },
     },
   },
   plugins: [],

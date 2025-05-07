@@ -49,8 +49,7 @@ const EmployeeTable = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    
-    <div className="mx-auto px-2 sm:px-6 lg:px-8 ">
+    <div className="">
       <table id="example">
         <thead>
           <tr>

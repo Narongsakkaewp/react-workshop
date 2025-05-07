@@ -5,8 +5,8 @@ import UserHeader from './component/UserHeader';
 
 function App() {
   return (
-    <div className="App bg-green-300 min-h-screen p-5">
-      <div className='container mx-auto bg-white rounded-md p-5'>
+    <div className="App bg-gradient-to-r from-emeraldStart to-emeraldEnd shadow-lg min-h-screen p-5">
+      <div className=' bg-white rounded-lg p-5'>
         <Headers />
         <UserHeader />
         <EmployeeTable />
