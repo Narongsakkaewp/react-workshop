@@ -9,7 +9,7 @@ const EmployeeTable = () => {
   };
 
   // Optional: log rows
-  
+
   const showMap = (lat, lng) => {
     if (lat && lng) {
       window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
@@ -49,45 +49,44 @@ const EmployeeTable = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="table-responsive">
-      <table className="table table-striped table-bordered" id="example">
+    
+    <div className="mx-auto px-2 sm:px-6 lg:px-8 ">
+      <table id="example">
         <thead>
-        <tr style={{ backgroundColor: '#f2f2f2' }}>
-            <td align="center">รหัสพนักงาน</td>
-            <td align="center" style={{ width: '250px' }}>แผนก</td>
-            <td align="center" style={{ width: '250px' }}>ชื่อ - นามสกุล</td>
-            <td align="center">วัน/เวลา Check-in</td>
-            <td align="center">Lat, Long Check-in</td>
-            <td align="center">Maps</td>
-            <td align="center">วัน/เวลา Check-out</td>
-            <td align="center">Lat, Long Check-out</td>
-            <td align="center">Maps</td>
+          <tr>
+            <td className="border-2">รหัสพนักงาน</td>
+            <td className="border-2">แผนก</td>
+            <td className="border-2">ชื่อ - นามสกุล</td>
+            <td className="border-2">วัน/เวลา Check-in</td>
+            <td className="border-2">Lat, Long Check-in</td>
+            <td className="border-2">Maps</td>
+            <td className="border-2">วัน/เวลา Check-out</td>
+            <td className="border-2">Lat, Long Check-out</td>
+            <td className="border-2">Maps</td>
           </tr>
         </thead>
         <tbody>
           {rows.data.length > 0 ? (
             rows.data.map((row, index) => (
-              <tr key={index}>
-                <td align="center">{row.username}</td>
-                <td align="left">{row.department}</td>
-                <td align="center">{row.name}</td>
-                <td align="center">{formatDateTime(row.checkin_time)}</td>
-                <td align="center">{row.checkin_latitude}, {row.checkin_longitude}</td>
-                <td align="center">
+              <tr id='tr_list' key={index} className='hover:bg-blue-200 border-2'>
+                <td className="border-2">{row.username}</td>
+                <td className="border-2">{row.department}</td>
+                <td className="border-2">{row.name}</td>
+                <td className="border-2">{formatDateTime(row.checkin_time)}</td>
+                <td className="border-2">{row.checkin_latitude}, {row.checkin_longitude}</td>
+                <td className="border-2">
                   <button
-                    className="btn btn-danger btn-sm"
-                    style={{ borderRadius: '5px' }}
+                    className="bg-blue-500 text-white text-md px-3 py-1 rounded-lg hover:bg-slate-300 transition"
                     onClick={() => showMap(row.checkin_latitude, row.checkin_longitude)}
                   >
                     Map
                   </button>
                 </td>
-                <td align="center">{formatDateTime(row.checkout_time)}</td>
-                <td align="center">{row.checkout_latitude}, {row.checkout_longitude}</td>
-                <td align="center">
+                <td className="border-2">{formatDateTime(row.checkout_time)}</td>
+                <td className="border-2">{row.checkout_latitude}, {row.checkout_longitude}</td>
+                <td className="border-2">
                   <button
-                    className="btn btn-danger btn-sm"
-                    style={{ borderRadius: '5px' }}
+                    className="bg-red-700 text-white text-md px-3 py-1 rounded-lg hover:bg-red-300 transition"
                     onClick={() => showMap(row.checkout_latitude, row.checkout_longitude)}
                   >
                     Map
@@ -102,6 +101,11 @@ const EmployeeTable = () => {
           )}
         </tbody>
       </table>
+      {/* <div className="flex items-center justify-center mt-4">
+        <label> <input type="checkbox" defaultChecked></input> Test </label> &nbsp;&nbsp;&nbsp;
+        <label> <input type="checkbox" defaultChecked></input> Checkbox </label>
+      </div> */}
+      
     </div>
   );
 };
