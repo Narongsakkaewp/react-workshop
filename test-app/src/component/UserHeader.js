@@ -7,11 +7,8 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 const UserHeader = ({
-  countActive = 0,
-  countUnActive = 0,
   onSearch,
   onReset,
-  onPrint
 }) => {
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs());
@@ -29,7 +26,7 @@ const UserHeader = ({
             <input
               type="text"
               name="code"
-              placeholder="code"
+              placeholder="Code"
               autoComplete="off"
               className="H-Input"
             />
@@ -37,16 +34,19 @@ const UserHeader = ({
             <input
               type="text"
               name="name"
-              placeholder="name"
+              placeholder="Name"
               autoComplete="off"
               className="H-Input"
             />
 
             <select name="department" className="H-Dropdown">
-              <option value="">เลือกแผนก</option>
-              <option value="hr">ทรัพยากรบุคคล</option>
-              <option value="it">ไอที</option>
-              <option value="finance">การเงิน</option>
+              <option value="">แผนก</option>
+              <option value="finance">--</option>
+              <option value="finance">--</option>
+              <option value="finance">--</option>
+              <option value="finance">--</option>
+              <option value="finance">--</option>
+              <option value="finance">--</option>
             </select>
 
             <DatePicker
@@ -61,6 +61,7 @@ const UserHeader = ({
               label="เลือกวันที่สิ้นสุด"
               value={endDate}
               format="DD-MM-YYYY"
+              minDate={startDate}
               onChange={(newValue) => setEndDate(newValue)}
               slotProps={{ textField: { size: 'small', className: 'bg-white' } }}
             />

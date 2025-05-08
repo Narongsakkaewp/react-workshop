@@ -6,46 +6,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @layer components {
+
+    /***** App.js *****/
+    .App {
+        @apply bg-gradient-to-r from-emeraldStart to-emeraldEnd shadow-lg min-h-screen p-5;
+    }
+
+    .footer {
+        @apply text-center p-5 text-white font-kanit pt-5;
+    }
+
     /***** EmplpoyeeTable.js *****/
-  .custom-table {
-    @apply border-2 w-full shadow-lg;
-  }
+    .custom-table {
+        @apply border-2 w-full shadow-lg;
+    }
 
-  .custom-thead {
-    @apply bg-green-800 text-white text-center;
-  }
+    .custom-thead {
+        @apply bg-green-800 text-white text-center;
+    }
 
-  .custom-row {
-    @apply text-center font-kanit;
-  }
+    .custom-row {
+        @apply text-center font-kanit;
+    }
 
-  .custom-cell,
-  .custom-cell-tbody {
-    @apply border-spacing-2 p-2 border-collapse border border-gray-300;
-  }
+    .custom-cell,
+    .custom-cell-tbody {
+        @apply border-spacing-2 p-2 border-collapse border border-gray-300;
+    }
 
-  .custom-cell-tbody {
-    @apply font-kanit font-light;
-  }
+    .custom-cell-tbody {
+        @apply font-kanit font-light;
+    }
 
     /***** UserHeader.js *****/
-  .H-Menu{
-    @apply px-9 pt-5 flex justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent
-  }
+    .H-Menu {
+        @apply px-9 pt-5 flex justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent
+    }
 
-  .H-Menu-2{
-    @apply relative flex flex-wrap items-center my-2 font-kanit font-light gap-2
-  }
+    .H-Menu-2 {
+        @apply relative flex flex-wrap items-center my-2 font-kanit font-light gap-2
+    }
 
-  .H-Input{
-    @apply border rounded px-3 py-2
-  }
+    .H-Input {
+        @apply border rounded px-3 py-2
+    }
 
-  .H-Dropdown{
-    @apply border rounded px-3 py-2
-  }
+    .H-Dropdown {
+        @apply border rounded px-3 py-2 w-40
+    }
 
-  .btn-group{
-    @apply space-x-2
-  }
+    .btn-group {
+        @apply space-x-2
+    }
 }
