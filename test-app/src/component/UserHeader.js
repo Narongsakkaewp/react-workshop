@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -6,12 +6,49 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
-const UserHeader = ({
-  onSearch,
-  onReset,
-}) => {
-    const [startDate, setStartDate] = useState(dayjs());
-    const [endDate, setEndDate] = useState(dayjs());
+const UserHeader = ({ onSearch, onReset }) => {
+  const [startDate, setStartDate] = useState(dayjs(), {startDate: ''}  );
+  const [endDate, setEndDate] = useState(dayjs());
+  const [formData, setFormData] = useState({ code: '', name: '' });
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+        try {
+            const response = await fetch('http://');
+            setDepartments(response.data);
+        } catch (error) {
+            console.error('Error fetching departments:', error);
+            setDepartments([
+                { value: 'it', label: 'แผนก : ไอที' },
+                { value: 'mrk', label: 'แผนก : การตลาด' },
+                { value: 'hr', label: 'แผนก : บุคคล' },
+                { value: 'acc', label: 'แผนก : บัญชี' },
+            ]);
+        }
+    };
+
+    fetchDepartments();
+}, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (onSearch) {
+  //     onSearch({ ...formData, startDate, endDate });
+  //   }
+  // };
+
+  const handleReset = () => {
+    setFormData({ code: '', name: '' });
+    setStartDate(dayjs());
+    setEndDate(dayjs());
+    if (onReset) onReset();
+  };
 
   return (
     <div className="H-Menu">
@@ -19,6 +56,10 @@ const UserHeader = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            const formData = new FormData(e.target);
+            const formValues = Object.fromEntries(formData.entries());
+            console.log("Form Values:", formValues['code']);
+          console.log('Form Data:', Object.fromEntries(formData.entries()));
             if (onSearch) onSearch(e);
           }}
         >
@@ -27,6 +68,8 @@ const UserHeader = ({
               type="text"
               name="code"
               placeholder="Code"
+              value={formData.code}
+              onChange={handleInputChange}
               autoComplete="off"
               className="H-Input"
             />
@@ -35,18 +78,31 @@ const UserHeader = ({
               type="text"
               name="name"
               placeholder="Name"
+              value={formData.name}
+              onChange={handleInputChange}
               autoComplete="off"
               className="H-Input"
             />
 
-            <select name="department" className="H-Dropdown">
+            {/* <select name="department" className="H-Dropdown">
               <option value="">แผนก</option>
-              <option value="finance">--</option>
-              <option value="finance">--</option>
-              <option value="finance">--</option>
-              <option value="finance">--</option>
-              <option value="finance">--</option>
-              <option value="finance">--</option>
+              <option value="it">แผนก : ไอที</option>
+              <option value="market">แผนก : การตลาด</option>
+              <option value="hr">แผนก : บุคคล</option>
+            </select> */}
+
+            <select
+                name="department"
+                className="H-Dropdown"
+                value={formData.department}
+                onChange={handleInputChange}
+            >
+                <option value="">แผนก</option>
+                {departments.map((dept) => (
+                    <option key={dept.value} value={dept.value}>
+                        {dept.label}
+                    </option>
+                ))}
             </select>
 
             <DatePicker
@@ -73,7 +129,8 @@ const UserHeader = ({
 
             <button
               type="button"
-              onClick={onReset} className="bg-gray-500 text-white hover:bg-gray-200 hover:text-black px-4 py-2 rounded">
+              onClick={handleReset} 
+              className="bg-gray-500 text-white hover:bg-gray-200 hover:text-black px-4 py-2 rounded">
               ยกเลิก
             </button>
             </div>
