@@ -7,12 +7,8 @@ function App() {
   const [formValues, setSearchData] = useState(null);
 
   const handleSearch = (formValues) => {
-    console.log("Form Values:", formValues);
     setSearchData(formValues);
   };
-
-  // console.log('SearchParams:', searchParams);
-
   const handleReset = () => {
     setSearchData(null);
   };

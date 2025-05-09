@@ -1,7 +1,7 @@
 // test-app/src/component/EmployeeTable.js
 import React, { useEffect, useState } from 'react';
 
-const EmployeeTable = ({ formValues }) => {
+const EmployeeTable = ({ searchData }) => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -27,16 +27,15 @@ const EmployeeTable = ({ formValues }) => {
     } finally {
       setLoading(false);
     }
-    // console.log('Form Data:', formData);
+    console.log('FormData:', searchData);
   };
 
 
   useEffect(() => {
-    if (formValues) {
-      console.log("✅ เรียก API ด้วย searchData:", formValues);
-      fetchCheckins(formValues);
+    if (searchData) {
+      fetchCheckins(searchData);
     }
-  }, [formValues]);
+  }, [searchData]);
 
   const formatDateTime = (dt) => {
     return dt ? new Date(dt).toLocaleString() : '-';

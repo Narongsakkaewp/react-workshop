@@ -16,8 +16,6 @@ const UserHeader = ({ onSearch, onReset }) => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        // const response = await fetch('');
-        // setDepartments(response.data);
       } catch (error) {
         console.error('Error fetching departments:', error);
       }
@@ -37,24 +35,6 @@ const UserHeader = ({ onSearch, onReset }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   const formValues = Object.fromEntries(formData.entries());
-  //   console.log("Form Values:", e.target);
-
-    // const searchData = {
-    //   ...formData,
-    //   startDate: startDate.format('YYYY-MM-DD'),
-    //   endDate: endDate.format('YYYY-MM-DD'),
-    // };
-
-  //   if (onSearch) {
-  //     onSearch(formValues);
-  //   }
-  // };
-
   const handleReset = () => {
     setFormData({ code: '', name: '' });
     setStartDate(dayjs());
@@ -70,13 +50,6 @@ const UserHeader = ({ onSearch, onReset }) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const formValues = Object.fromEntries(formData.entries());
-            // const searchData = {
-            //   ...formData,
-            //   startDate: startDate.format('YYYY-MM-DD'),
-            //   endDate: endDate.format('YYYY-MM-DD'),
-            // };
-            console.log("Form Values:", formValues);
-            // console.log('Form Data:', Object.fromEntries(formData.entries()));
             if (onSearch) onSearch(formValues);
           }}
         >
@@ -100,14 +73,7 @@ const UserHeader = ({ onSearch, onReset }) => {
               autoComplete="off"
               className="H-Input"
             />
-
-            {/* <select name="department" className="H-Dropdown">
-              <option value="">แผนก</option>
-              <option value="it">แผนก : ไอที</option>
-              <option value="market">แผนก : การตลาด</option>
-              <option value="hr">แผนก : บุคคล</option>
-            </select> */}
-
+            
             <select
               name="department"
               className="H-Dropdown"
