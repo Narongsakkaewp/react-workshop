@@ -1,14 +1,46 @@
+// test-app/src/component/EmployeeTable.js
 import React, { useEffect, useState } from 'react';
 
-const EmployeeTable = () => {
+const EmployeeTable = ({ formValues }) => {
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const fetchCheckins = async (params) => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/listCheckin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setRows(data);
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    } finally {
+      setLoading(false);
+    }
+    // console.log('Form Data:', formData);
+  };
+
+
+  useEffect(() => {
+    if (formValues) {
+      console.log("✅ เรียก API ด้วย searchData:", formValues);
+      fetchCheckins(formValues);
+    }
+  }, [formValues]);
 
   const formatDateTime = (dt) => {
     return dt ? new Date(dt).toLocaleString() : '-';
   };
-
-  // Optional: log rows
 
   const showMap = (lat, lng) => {
     if (lat && lng) {
@@ -16,36 +48,6 @@ const EmployeeTable = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchCheckins = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/listCheckin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Authorization': 'Bearer LcbxpDu7J2Dj2DkRlAKM6649tSSdwuJtKfcoSQhR', // replace with your token
-          },
-        });
-
-        // console.log(response); // Optional: log response
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        // console.log(data); // Optional: log data
-        setRows(data);
-      } catch (error) {
-        console.error('Error fetching data:', error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCheckins();
-  }, []);
-  // console.log(rows.data); 
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -65,9 +67,9 @@ const EmployeeTable = () => {
           </tr>
         </thead>
         <tbody>
-          {rows.data.length > 0 ? (
+          {rows.data && rows.data.length > 0 ? (
             rows.data.map((row, index) => (
-              <tr id='tr_list' key={index} className='hover:bg-blue-200 border-2'>
+              <tr key={index} className='hover:bg-blue-200 border-2'>
                 <td className="custom-cell-tbody">{row.username}</td>
                 <td className="custom-cell-tbody">{row.department}</td>
                 <td className="custom-cell-tbody">{row.name}</td>
@@ -100,11 +102,6 @@ const EmployeeTable = () => {
           )}
         </tbody>
       </table>
-      {/* <div className="flex items-center justify-center mt-4">
-        <label> <input type="checkbox" defaultChecked></input> Test </label> &nbsp;&nbsp;&nbsp;
-        <label> <input type="checkbox" defaultChecked></input> Checkbox </label>
-      </div> */}
-      
     </div>
   );
 };

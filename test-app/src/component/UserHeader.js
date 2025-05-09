@@ -1,3 +1,4 @@
+// test-app/src/component/EmployeeTable.js
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -7,29 +8,30 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 const UserHeader = ({ onSearch, onReset }) => {
-  const [startDate, setStartDate] = useState(dayjs(), {startDate: ''}  );
+  const [startDate, setStartDate] = useState(dayjs(), { startDate: '' });
   const [endDate, setEndDate] = useState(dayjs());
-  const [formData, setFormData] = useState({ code: '', name: '' });
+  const [formData, setFormData] = useState({ code: '', name: '', department: '', startDate: '', endDate: '' });
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
     const fetchDepartments = async () => {
-        try {
-            const response = await fetch('http://');
-            setDepartments(response.data);
-        } catch (error) {
-            console.error('Error fetching departments:', error);
-            setDepartments([
-                { value: 'it', label: 'แผนก : ไอที' },
-                { value: 'mrk', label: 'แผนก : การตลาด' },
-                { value: 'hr', label: 'แผนก : บุคคล' },
-                { value: 'acc', label: 'แผนก : บัญชี' },
-            ]);
-        }
+      try {
+        // const response = await fetch('');
+        // setDepartments(response.data);
+      } catch (error) {
+        console.error('Error fetching departments:', error);
+      }
+
+      setDepartments([
+        { value: 'it', label: 'แผนก : ไอที' },
+        { value: 'mrk', label: 'แผนก : การตลาด' },
+        { value: 'hr', label: 'แผนก : บุคคล' },
+        { value: 'acc', label: 'แผนก : บัญชี' },
+      ]);
     };
 
     fetchDepartments();
-}, []);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,8 +40,18 @@ const UserHeader = ({ onSearch, onReset }) => {
 
   // const handleSearch = (e) => {
   //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const formValues = Object.fromEntries(formData.entries());
+  //   console.log("Form Values:", e.target);
+
+    // const searchData = {
+    //   ...formData,
+    //   startDate: startDate.format('YYYY-MM-DD'),
+    //   endDate: endDate.format('YYYY-MM-DD'),
+    // };
+
   //   if (onSearch) {
-  //     onSearch({ ...formData, startDate, endDate });
+  //     onSearch(formValues);
   //   }
   // };
 
@@ -58,9 +70,14 @@ const UserHeader = ({ onSearch, onReset }) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const formValues = Object.fromEntries(formData.entries());
-            console.log("Form Values:", formValues['code']);
-          console.log('Form Data:', Object.fromEntries(formData.entries()));
-            if (onSearch) onSearch(e);
+            // const searchData = {
+            //   ...formData,
+            //   startDate: startDate.format('YYYY-MM-DD'),
+            //   endDate: endDate.format('YYYY-MM-DD'),
+            // };
+            console.log("Form Values:", formValues);
+            // console.log('Form Data:', Object.fromEntries(formData.entries()));
+            if (onSearch) onSearch(formValues);
           }}
         >
           <div className="H-Menu-2">
@@ -92,22 +109,23 @@ const UserHeader = ({ onSearch, onReset }) => {
             </select> */}
 
             <select
-                name="department"
-                className="H-Dropdown"
-                value={formData.department}
-                onChange={handleInputChange}
+              name="department"
+              className="H-Dropdown"
+              value={formData.department}
+              onChange={handleInputChange}
             >
-                <option value="">แผนก</option>
-                {departments.map((dept) => (
-                    <option key={dept.value} value={dept.value}>
-                        {dept.label}
-                    </option>
-                ))}
+              <option value="">แผนก</option>
+              {departments.map((dept) => (
+                <option key={dept.value} value={dept.value}>
+                  {dept.label}
+                </option>
+              ))}
             </select>
 
             <DatePicker
               label="เลือกวันที่เริ่มต้น"
               value={startDate}
+              name='startDate'
               format="DD-MM-YYYY"
               onChange={(newValue) => setStartDate(newValue)}
               slotProps={{ textField: { size: 'small', className: 'bg-white' } }}
@@ -116,6 +134,7 @@ const UserHeader = ({ onSearch, onReset }) => {
             <DatePicker
               label="เลือกวันที่สิ้นสุด"
               value={endDate}
+              name='endDate'
               format="DD-MM-YYYY"
               minDate={startDate}
               onChange={(newValue) => setEndDate(newValue)}
@@ -123,16 +142,16 @@ const UserHeader = ({ onSearch, onReset }) => {
             />
 
             <div className='btn-group'>
-            <button type="submit" className="bg-yellow-500 text-white hover:bg-yellow-200 hover:text-black px-4 py-2 rounded">
-              ค้นหา
-            </button>
+              <button type="submit" className="bg-yellow-500 text-white hover:bg-yellow-200 hover:text-black px-4 py-2 rounded">
+                ค้นหา
+              </button>
 
-            <button
-              type="button"
-              onClick={handleReset} 
-              className="bg-gray-500 text-white hover:bg-gray-200 hover:text-black px-4 py-2 rounded">
-              ยกเลิก
-            </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="bg-gray-500 text-white hover:bg-gray-200 hover:text-black px-4 py-2 rounded">
+                ยกเลิก
+              </button>
             </div>
           </div>
         </form>

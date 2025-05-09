@@ -1,16 +1,29 @@
-import React from 'react';
+import React,{useState} from 'react';
 import EmployeeTable from './component/EmployeeTable';
 import Headers from './component/Header';
 import UserHeader from './component/UserHeader';
 
 function App() {
+  const [formValues, setSearchData] = useState(null);
+
+  const handleSearch = (formValues) => {
+    console.log("Form Values:", formValues);
+    setSearchData(formValues);
+  };
+
+  // console.log('SearchParams:', searchParams);
+
+  const handleReset = () => {
+    setSearchData(null);
+  };
+
   return (
     <div className="App">
       <main className='main'>
         <div className=' bg-white rounded-lg p-5 shadow-md shadow-slate-300'>
           <Headers />
-          <UserHeader />
-          <EmployeeTable />
+          <UserHeader onSearch={handleSearch} onReset={handleReset} />
+          <EmployeeTable searchData={formValues} />
         </div>
       </main>
 
