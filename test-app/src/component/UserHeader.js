@@ -49,6 +49,8 @@ const UserHeader = ({ onSearch, onReset }) => {
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
+            console.log(e);
+            
             const formValues = Object.fromEntries(formData.entries());
             if (onSearch) onSearch(formValues);
           }}
@@ -92,7 +94,7 @@ const UserHeader = ({ onSearch, onReset }) => {
               label="เลือกวันที่เริ่มต้น"
               value={startDate}
               name='startDate'
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
               onChange={(newValue) => setStartDate(newValue)}
               slotProps={{ textField: { size: 'small', className: 'bg-white' } }}
             />
@@ -101,7 +103,7 @@ const UserHeader = ({ onSearch, onReset }) => {
               label="เลือกวันที่สิ้นสุด"
               value={endDate}
               name='endDate'
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
               minDate={startDate}
               onChange={(newValue) => setEndDate(newValue)}
               slotProps={{ textField: { size: 'small', className: 'bg-white' } }}

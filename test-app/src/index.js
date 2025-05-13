@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+<script type="text/javascript" src="js/shim.min.js"></script>;
+<script type="text/javascript" src="js/xlsx.mini.min.js"></script>;
+
+/* Bootstrap CSS and JS */
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 

@@ -1,5 +1,7 @@
 // test-app/src/component/EmployeeTable.js
 import React, { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const EmployeeTable = ({ searchData }) => {
   const [rows, setRows] = useState([]);
@@ -30,6 +32,33 @@ const EmployeeTable = ({ searchData }) => {
     console.log('FormData:', searchData);
   };
 
+  const handleExport = () => {
+    if (!rows.data || rows.data.length === 0) {
+      alert('ไม่มีข้อมูลสำหรับ export');
+      return;
+    }
+    const exportData = rows.data.map((row) => ({
+      'รหัสพนักงาน': row.username,
+      'แผนก': row.department,
+      'ชื่อ - นามสกุล': row.name,
+      'วัน/เวลา Check-in': formatDateTime(row.checkin_time),
+      'Lat, Long Check-in': `${row.checkin_latitude}, ${row.checkin_longitude}`,
+      'วัน/เวลา Check-out': formatDateTime(row.checkout_time),
+      'Lat, Long Check-out': `${row.checkout_latitude}, ${row.checkout_longitude}`,
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'CheckinData');
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(data, 'emp_checkdata.xlsx');
+  };
+
 
   useEffect(() => {
     if (searchData) {
@@ -51,6 +80,16 @@ const EmployeeTable = ({ searchData }) => {
 
   return (
     <div>
+      {rows.data && rows.data.length > 0 && (
+        <button
+          type="button"
+          onClick={handleExport}
+          className="bg-blue-700 text-white hover:bg-blue-200 hover:text-black px-4 py-2 rounded mb-4"
+        >
+          Export
+        </button>
+      )}
+
       <table className='custom-table'>
         <thead className='custom-thead'>
           <tr className="custom-row">
@@ -76,7 +115,7 @@ const EmployeeTable = ({ searchData }) => {
                 <td className="custom-cell-tbody">{row.checkin_latitude}, {row.checkin_longitude}</td>
                 <td className="custom-cell-tbody">
                   <button
-                    className="bg-blue-500 text-white text-md px-3 py-1 rounded-lg hover:bg-slate-300 transition"
+                    className="bg-green-800 text-white text-md px-3 py-1 rounded-lg hover:bg-green-300 hover:text-black transition"
                     onClick={() => showMap(row.checkin_latitude, row.checkin_longitude)}
                   >
                     Map
@@ -86,7 +125,7 @@ const EmployeeTable = ({ searchData }) => {
                 <td className="custom-cell-tbody">{row.checkout_latitude}, {row.checkout_longitude}</td>
                 <td className="custom-cell-tbody">
                   <button
-                    className="bg-red-700 text-white text-md px-3 py-1 rounded-lg hover:bg-red-300 transition"
+                    className="bg-red-700 text-white text-md px-3 py-1 rounded-lg hover:bg-red-300 hover:text-black transition"
                     onClick={() => showMap(row.checkout_latitude, row.checkout_longitude)}
                   >
                     Map
