@@ -25,10 +25,6 @@ function App() {
 
       <footer className='footer'>
         <p>© 2025 Employee.<br/>All rights reserved.</p>
-        <a href="https://google.com" onclick="event.preventDefault(); alert('Link clicked!')">
-            Click me
-        </a>
-
       </footer>
 
     </div>

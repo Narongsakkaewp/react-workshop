@@ -34,7 +34,7 @@ const EmployeeTable = ({ searchData }) => {
 
   const handleExport = () => {
     if (!rows.data || rows.data.length === 0) {
-      alert('ไม่มีข้อมูลสำหรับ export');
+      alert('No data to export');
       return;
     }
     const exportData = rows.data.map((row) => ({
@@ -42,10 +42,11 @@ const EmployeeTable = ({ searchData }) => {
       'แผนก': row.department,
       'ชื่อ - นามสกุล': row.name,
       'วัน/เวลา Check-in': formatDateTime(row.checkin_time),
-      'Lat, Long Check-in': `${row.checkin_latitude}, ${row.checkin_longitude}`,
+      'Lat, Long Check-in': `${row.checkin_latitude }, ${row.checkin_longitude}`,
       'วัน/เวลา Check-out': formatDateTime(row.checkout_time),
-      'Lat, Long Check-out': `${row.checkout_latitude}, ${row.checkout_longitude}`,
+      'Lat, Long Check-out': `${row.checkout_latitude ?? '-'}, ${row.checkout_longitude ?? '-'}`,
     }));
+
     const worksheet = XLSX.utils.json_to_sheet(exportData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'CheckinData');
@@ -56,9 +57,8 @@ const EmployeeTable = ({ searchData }) => {
     });
 
     const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(data, 'emp_checkdata.xlsx');
+    saveAs(data, 'checkIn_data.xlsx');
   };
-
 
   useEffect(() => {
     if (searchData) {
@@ -84,11 +84,12 @@ const EmployeeTable = ({ searchData }) => {
         <button
           type="button"
           onClick={handleExport}
-          className="bg-blue-700 text-white hover:bg-blue-200 hover:text-black px-4 py-2 rounded mb-4"
+          className="bg-blue-700 text-white hover:bg-blue-200 hover:text-black px-4 py-2 rounded mb-4 font-kanit font-light"
         >
           Export
         </button>
       )}
+      <br/>
 
       <table className='custom-table'>
         <thead className='custom-thead'>
