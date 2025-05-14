@@ -59,11 +59,12 @@ const UserHeader = ({ onSearch, onReset }) => {
             <input
               type="text"
               name="code"
-              placeholder="Code"
+              placeholder="Code" 
               value={formData.code}
               onChange={handleInputChange}
               autoComplete="off"
               className="H-Input"
+              
             />
 
             <input
