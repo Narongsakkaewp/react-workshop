@@ -42,7 +42,7 @@ const EmployeeTable = ({ searchData }) => {
       'แผนก': row.department,
       'ชื่อ - นามสกุล': row.name,
       'วัน/เวลา Check-in': formatDateTime(row.checkin_time),
-      'Lat, Long Check-in': `${row.checkin_latitude }, ${row.checkin_longitude}`,
+      'Lat, Long Check-in': `${row.checkin_latitude}, ${row.checkin_longitude}`,
       'วัน/เวลา Check-out': formatDateTime(row.checkout_time),
       'Lat, Long Check-out': `${row.checkout_latitude ?? '-'}, ${row.checkout_longitude ?? '-'}`,
     }));
@@ -89,7 +89,7 @@ const EmployeeTable = ({ searchData }) => {
           Export
         </button>
       )}
-      <br/>
+      <br />
 
       <table className='custom-table'>
         <thead className='custom-thead'>
