@@ -18,7 +18,7 @@
 
     /***** EmplpoyeeTable.js *****/
     .custom-table {
-        @apply border-2 w-full shadow-lg;
+        @apply border-2 w-full shadow-lg text-center;
     }
 
     .custom-thead {
